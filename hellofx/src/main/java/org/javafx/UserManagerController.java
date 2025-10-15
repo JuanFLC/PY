@@ -11,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class SecondaryController implements Initializable {
+public class UserManagerController implements Initializable {
 
     @FXML private TableView<Usuario> usersTable;
     @FXML private TableColumn<Usuario, Integer> colId;
@@ -42,8 +42,8 @@ public class SecondaryController implements Initializable {
     }
 
     @FXML
-    private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
+    private void switchToMainMenu() throws IOException {
+        App.setRoot("mainmenu");
     }
 
       private void setupTableColumns() {
