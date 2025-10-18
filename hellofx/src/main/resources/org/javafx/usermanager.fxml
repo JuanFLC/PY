@@ -78,8 +78,6 @@
                 <Button fx:id="btnDelete" disable="true" onAction="#handleDeleteUser" text="Eliminar" />
                 <Button fx:id="btnClear" onAction="#handleClear" text="Limpiar" />
             </HBox>
-            
-            <Button fx:id="userManagerButton" onAction="#switchToMainMenu" text="Volver" />
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>

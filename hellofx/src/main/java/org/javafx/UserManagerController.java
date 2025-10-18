@@ -41,10 +41,6 @@ public class UserManagerController implements Initializable {
         setupTableSelection();
     }
 
-    @FXML
-    private void switchToMainMenu() throws IOException {
-        App.setRoot("mainmenu");
-    }
 
       private void setupTableColumns() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));

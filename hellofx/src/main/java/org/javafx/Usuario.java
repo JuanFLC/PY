@@ -3,6 +3,7 @@ package org.javafx;
 import javafx.beans.property.*;
 
 
+
 public class Usuario {
     private final IntegerProperty id;
     private final StringProperty name;
@@ -10,6 +11,7 @@ public class Usuario {
     private final StringProperty phone;
     private final StringProperty department;
 
+    
     public Usuario() {
         this.id = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty();
@@ -25,6 +27,24 @@ public class Usuario {
         setEmail(email);
         setPhone(phone);
         setDepartment(department);
+    }
+
+    public enum TypeUser
+    {
+        Administrador("Administrador"),
+        Piscicultor("Piscicultor"),
+        Tecnico("Tecnico");
+
+        private final String user;
+
+        private TypeUser(String typeUser)
+        {
+            this.user = typeUser;
+        }
+
+        public String getTypeUser() {
+            return user;
+        }
     }
 
     // Getters y Setters para propiedades
