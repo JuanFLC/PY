@@ -9,7 +9,8 @@ public class Usuario {
     private final StringProperty name;
     private final StringProperty email;
     private final StringProperty phone;
-    private final StringProperty department;
+    private final StringProperty cedula;
+    private final StringProperty rol;
 
     
     public Usuario() {
@@ -17,16 +18,18 @@ public class Usuario {
         this.name = new SimpleStringProperty();
         this.email = new SimpleStringProperty();
         this.phone = new SimpleStringProperty();
-        this.department = new SimpleStringProperty();
+        this.cedula = new SimpleStringProperty();
+        this.rol = new SimpleStringProperty();
     }
 
-    public Usuario(int id, String name, String email, String phone, String department) {
+    public Usuario(int id, String name, String email, String phone, String cedula, String rol) {
         this();
         setId(id);
         setName(name);
         setEmail(email);
         setPhone(phone);
-        setDepartment(department);
+        setCedula(cedula);
+        setRol(rol);
     }
 
     public enum TypeUser
@@ -64,7 +67,12 @@ public class Usuario {
     public void setPhone(String value) { phone.set(value); }
     public StringProperty phoneProperty() { return phone; }
 
-    public String getDepartment() { return department.get(); }
-    public void setDepartment(String value) { department.set(value); }
-    public StringProperty departmentProperty() { return department; }
+    public String getCedula() { return cedula.get(); }
+    public void setCedula(String value) { cedula.set(value); }
+    public StringProperty CedulaProperty() { return cedula; }
+
+    public String getRol() { return rol.get(); }
+    public void setRol(String value) { rol.set(value); }
+    public StringProperty RolProperty(){return rol;}
+    
 }

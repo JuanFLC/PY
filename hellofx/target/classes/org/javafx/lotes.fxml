@@ -2,10 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -16,16 +20,20 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javafx.LotesController">
    <center>
-      <TableView BorderPane.alignment="CENTER">
+      <TableView fx:id="lotesTable" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="75.0" text="Especie" />
-            <TableColumn prefWidth="75.0" text="Cantidad" />
+          <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="colEspecie" prefWidth="150.0" text="Especie" />
+            <TableColumn fx:id="colCantidad" prefWidth="150.0" text="Cantidad" />
+            <TableColumn fx:id="colFecha" prefWidth="200.0" text="Fecha de recolección" />
         </columns>
+         <BorderPane.margin>
+            <Insets bottom="100.0" left="20.0" right="20.0" top="100.0" />
+         </BorderPane.margin>
       </TableView>
    </center>
    <top>
-      <Label text="Lotes Actuales" BorderPane.alignment="CENTER">
+      <Label text="Gestor de lotes" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -39,33 +47,34 @@
          <children>
             <GridPane hgap="10.0" vgap="10.0">
               <columnConstraints>
-                <ColumnConstraints prefWidth="100" />
-                <ColumnConstraints prefWidth="300" />
+                <ColumnConstraints maxWidth="124.00000610351563" minWidth="104.79998779296875" prefWidth="124.00000610351563" />
+                <ColumnConstraints maxWidth="295.20001220703125" minWidth="276.79999389648435" prefWidth="276.79999389648435" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints />
                   <RowConstraints />
                   <RowConstraints />
                   <RowConstraints />
+                  <RowConstraints />
               </rowConstraints>
-                  <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                  <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                
-                  <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                
-                  <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                  <TextField fx:id="txtPhone" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                
-                  <Label text="Departamento:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtDepartment" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Especie:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                  <ChoiceBox fx:id="chEspecie" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                  <Label text="Cantidad:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtCantidad" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                  <Label text="Fecha de recolección:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="dpFecha" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                  <Label text="Estanque:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                  <ChoiceBox fx:id="chEstanque" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </GridPane>
             <HBox alignment="CENTER" spacing="10">
                <children>
-                  <Button fx:id="btnAdd" text="Agregar" />
-                  <Button fx:id="btnUpdate" disable="true" text="Actualizar" />
-                  <Button fx:id="btnDelete" disable="true" text="Eliminar" />
-                  <Button fx:id="btnClear" text="Limpiar" />
+                  <Button fx:id="btnAdd" onAction="#handleAddLote" text="Agregar" />
+                  <Button fx:id="btnUpdate" disable="true" onAction="#handleUpdateLote" text="Actualizar" />
+                  <Button fx:id="btnDelete" disable="true" onAction="#handleDeleteLote" text="Eliminar" />
+                  <Button fx:id="btnClear" onAction="#handleClear" text="Limpiar" />
                </children>
             </HBox>
          </children>
@@ -74,4 +83,37 @@
          </padding>
       </VBox>
    </bottom>
+   <right>
+         <VBox BorderPane.alignment="CENTER">
+            <children>
+            <Label contentDisplay="TOP" text="Gestor de imagenes" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+               <ListView fx:id="lvImages" prefHeight="188.0" prefWidth="248.0" />
+               <ImageView fx:id="imagePreview" fitHeight="150.0" fitWidth="200.0" preserveRatio="true">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin></ImageView>
+               <HBox spacing="10">
+                  <children>
+                     <Button fx:id="btnUploadImage" onAction="#handleUploadImage" text="Subir Imagen">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                     <Button fx:id="btnViewImage" onAction="#handleViewImage" text="Ver Imagen">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  </children>
+               </HBox>
+            </children>
+         <padding>
+            <Insets bottom="100.0" left="20.0" right="20.0" top="100.0" />
+         </padding>
+         </VBox>
+   </right>
 </BorderPane>

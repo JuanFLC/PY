@@ -30,6 +30,7 @@ public class MainMenuController implements  Initializable {
     {
         loadTreeList();
         configurarListeners();
+        applyRoleBasedVisibility();
     }
 
     private void loadTreeList(){
@@ -38,18 +39,21 @@ public class MainMenuController implements  Initializable {
         TreeItem<String> branch1 = new TreeItem<>("Credenciales y creacion de entidades");
         TreeItem<String> branch2 = new TreeItem<>("Trazabilidad");
         TreeItem<String> branch3 = new TreeItem<>("Recomendaciones");
-        
+
         TreeItem<String> leaf1 = new TreeItem<>("Usuarios");
+        TreeItem<String> leafRecomendaciones = new TreeItem<>("Recomendaciones");
         TreeItem<String> leaf2 = new TreeItem<>("Lotes");
         TreeItem<String> leaf3 = new TreeItem<>("Granjas");
+        TreeItem<String> leaf4 = new TreeItem<>("Estanques");
+        
+        TreeItem<String> leaf5 = new TreeItem<>("Reportes");
+        TreeItem<String> leaf6 = new TreeItem<>("Registro general");
+        TreeItem<String> leaf7 = new TreeItem<>("Inventario");
 
-        TreeItem<String> leaf4 = new TreeItem<>("Reportes");
-        TreeItem<String> leaf5 = new TreeItem<>("Registro alimentario");
-        TreeItem<String> leaf6 = new TreeItem<>("Inventario");
 
-
-        branch1.getChildren().addAll(leaf1,leaf2,leaf3);
-        branch2.getChildren().addAll(leaf4,leaf5,leaf6);
+        branch1.getChildren().addAll(leaf1,leaf2,leaf3,leaf4);
+        branch2.getChildren().addAll(leaf5,leaf6,leaf7);
+        branch3.getChildren().add(leafRecomendaciones);
         root.getChildren().addAll(branch1, branch2, branch3);
 
         treeMenuList.setRoot(root);
@@ -59,6 +63,9 @@ public class MainMenuController implements  Initializable {
         vistaMap.put("Usuarios", "usermanager");
         vistaMap.put("Lotes", "lotes");
         vistaMap.put("Granjas", "farmmanager");
+        vistaMap.put("Estanques", "estanque");
+        vistaMap.put("Registro general", "lotestz");
+        vistaMap.put("Recomendaciones", "recomendacion");
     }
 
     private void configurarListeners() {
@@ -110,6 +117,22 @@ public class MainMenuController implements  Initializable {
     @FXML
     private void loadVistaUsuarios(){
         loadMiddleView("usermanager.fxml");
+    }
+
+    private void applyRoleBasedVisibility() {
+        String role = App.getCurrentUserRole();
+        if (role == null) return;
+
+        TreeItem<String> root = treeMenuList.getRoot();
+        for (TreeItem<String> branch : root.getChildren()) {
+            for (TreeItem<String> leaf : branch.getChildren()) {
+                if ("Piscicultor".equals(role) && "Usuarios".equals(leaf.getValue())) {
+                    leaf.setValue(""); // Hide by setting empty text
+                } else if ("Tecnico".equals(role) && ("Usuarios".equals(leaf.getValue()) || "Granjas".equals(leaf.getValue()) || "Estanques".equals(leaf.getValue()))) {
+                    leaf.setValue(""); // Hide by setting empty text
+                }
+            }
+        }
     }
 
 }

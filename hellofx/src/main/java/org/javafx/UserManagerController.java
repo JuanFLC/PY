@@ -18,12 +18,14 @@ public class UserManagerController implements Initializable {
     @FXML private TableColumn<Usuario, String> colName;
     @FXML private TableColumn<Usuario, String> colEmail;
     @FXML private TableColumn<Usuario, String> colPhone;
-    @FXML private TableColumn<Usuario, String> colDepartment;
+    @FXML private TableColumn<Usuario, String> colCedula;
+    @FXML private TableColumn<Usuario, String> colRol;
 
     @FXML private TextField txtName;
     @FXML private TextField txtEmail;
     @FXML private TextField txtPhone;
-    @FXML private TextField txtDepartment;
+    @FXML private ChoiceBox<String> ChRol = new ChoiceBox<>();
+    @FXML private TextField txtCedula;
 
     @FXML private Button btnAdd;
     @FXML private Button btnUpdate;
@@ -39,6 +41,7 @@ public class UserManagerController implements Initializable {
         setupTableColumns();
         loadUsers();
         setupTableSelection();
+        loadRoles();
     }
 
 
@@ -47,7 +50,8 @@ public class UserManagerController implements Initializable {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        colDepartment.setCellValueFactory(new PropertyValueFactory<>("department"));
+        colCedula.setCellValueFactory(new PropertyValueFactory<>("cedula"));
+        colRol.setCellValueFactory(new PropertyValueFactory<>("rol"));
     }
 
     private void loadUsers() {
@@ -68,8 +72,9 @@ public class UserManagerController implements Initializable {
         txtName.setText(user.getName());
         txtEmail.setText(user.getEmail());
         txtPhone.setText(user.getPhone());
-        txtDepartment.setText(user.getDepartment());
-        
+        txtCedula.setText(user.getCedula());
+        ChRol.setValue(user.getRol());
+
         btnAdd.setDisable(true);
         btnUpdate.setDisable(false);
         btnDelete.setDisable(false);
@@ -82,8 +87,9 @@ public class UserManagerController implements Initializable {
             user.setName(txtName.getText());
             user.setEmail(txtEmail.getText());
             user.setPhone(txtPhone.getText());
-            user.setDepartment(txtDepartment.getText());
-            
+            user.setCedula(txtCedula.getText());
+            user.setRol(ChRol.getValue());
+
             userService.addUser(user);
             clearFields();
         }
@@ -95,8 +101,9 @@ public class UserManagerController implements Initializable {
             selectedUser.setName(txtName.getText());
             selectedUser.setEmail(txtEmail.getText());
             selectedUser.setPhone(txtPhone.getText());
-            selectedUser.setDepartment(txtDepartment.getText());
-            
+            selectedUser.setCedula(txtCedula.getText());
+            selectedUser.setRol(ChRol.getValue());
+
             userService.updateUser(selectedUser);
             usersTable.refresh();
             clearFields();
@@ -127,9 +134,10 @@ public class UserManagerController implements Initializable {
         txtName.clear();
         txtEmail.clear();
         txtPhone.clear();
-        txtDepartment.clear();
+        txtCedula.clear();
+        ChRol.setValue(null);
         usersTable.getSelectionModel().clearSelection();
-        
+
         selectedUser = null;
         btnAdd.setDisable(false);
         btnUpdate.setDisable(true);
@@ -137,11 +145,12 @@ public class UserManagerController implements Initializable {
     }
 
     private boolean validateFields() {
-        if (txtName.getText().isEmpty() || 
-            txtEmail.getText().isEmpty() || 
-            txtPhone.getText().isEmpty() || 
-            txtDepartment.getText().isEmpty()) {
-            
+        if (txtName.getText().isEmpty() ||
+            txtEmail.getText().isEmpty() ||
+            txtPhone.getText().isEmpty() ||
+            txtCedula.getText().isEmpty() ||
+            ChRol.getValue() == null) {
+
             showAlert("Error", "Todos los campos son obligatorios");
             return false;
         }
@@ -155,5 +164,9 @@ public class UserManagerController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    
+
+    private void loadRoles() {
+        ChRol.setItems(userService.getRoles());
+    }
+
 }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javafx.SecondaryController">
+    <children>
+        <Label text="Gestión de usuarios" />
+        <Button fx:id="secondaryButton" onAction="#switchToPrimary" text="Switch to Primary View" />
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox> -->
+
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javafx.EstanqueManagerController">
+    
+    <top>
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Gestor de estanques" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20" top="20" />
+            </padding>
+        </Label>
+    </top>
+    
+    <center>
+        <TableView fx:id="estanquesTable" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="50" text="ID" />
+                <TableColumn fx:id="colCapacidad" prefWidth="150" text="Capacidad" />
+                <TableColumn fx:id="colFecha" prefWidth="200" text="Fecha de operación" />
+                <TableColumn fx:id="colIdGranja" prefWidth="120" text="Granja" />
+            </columns>
+         <BorderPane.margin>
+            <Insets left="20.0" right="20.0" />
+         </BorderPane.margin>
+        </TableView>
+    </center>
+    
+    <bottom>
+        <VBox spacing="10" style="-fx-padding: 20;">
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints prefWidth="100" />
+                    <ColumnConstraints prefWidth="300" />
+                </columnConstraints>
+                
+                <Label text="Capacidad:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="txtCapacidad" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                
+                <Label text="Fecha de operación:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                
+                <Label text="Granja:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <ChoiceBox fx:id="chGranja" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="dpFecha" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            </rowConstraints>
+            </GridPane>
+            
+            <HBox alignment="CENTER" spacing="10">
+                <Button fx:id="btnAdd" onAction="#handleAddEstanque" text="Agregar" />
+                <Button fx:id="btnUpdate" disable="true" onAction="#handleUpdateEstanque" text="Actualizar" />
+                <Button fx:id="btnDelete" disable="true" onAction="#handleDeleteEstanque" text="Eliminar" />
+                <Button fx:id="btnClear" onAction="#handleClear" text="Limpiar" />
+            </HBox>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </VBox>
+    </bottom>
+</BorderPane>

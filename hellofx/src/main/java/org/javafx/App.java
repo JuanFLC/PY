@@ -16,19 +16,20 @@ import java.util.Map;
  */
 public class App extends Application {
 
-    private static Scene scene;
+    public static Scene scene;
     private static Map<String, Object> controladores = new HashMap<>();
     private static String vistaActual;
     private static FXMLLoader fxmlLoader;
+    private static String currentUserRole;
 
 
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("mainmenu"), 640, 480);
+        scene = new Scene(loadFXML("usermenu"), 640, 480);
         stage.setScene(scene);
         stage.show();
-        
+
     }
     static FXMLLoader getFXMLLoader()
     {
@@ -63,7 +64,13 @@ public class App extends Application {
         System.err.println(mensaje);
     }
 
-    
+    public static String getCurrentUserRole() {
+        return currentUserRole;
+    }
+
+    public static void setCurrentUserRole(String role) {
+        currentUserRole = role;
+    }
 
     public static void main(String[] args) {
         launch();
