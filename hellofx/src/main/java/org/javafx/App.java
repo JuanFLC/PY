@@ -26,6 +26,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        // Initialize the database
+        DatabaseUtil.initializeDatabase();
+
         scene = new Scene(loadFXML("usermenu"), 640, 480);
         stage.setScene(scene);
         stage.show();
